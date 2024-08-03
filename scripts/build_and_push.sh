@@ -22,8 +22,8 @@ src_dir=$CODEBUILD_SRC_DIR
 echo "Fetching DockerHub credentials from AWS Secrets Manager..."
 aws secretsmanager get-secret-value --secret-id dockercredentials --query SecretString --output text > dockercredentials.json
 
-DOCKERHUB_USERNAME=$(jq -r '.username' dockerhub_credentials.json)
-DOCKERHUB_PASSWORD=$(jq -r '.password' dockerhub_credentials.json)
+DOCKERHUB_USERNAME=$(jq -r '.username' dockercredentials.json)
+DOCKERHUB_PASSWORD=$(jq -r '.password' dockercredentials.json)
 
 echo "Logging in to DockerHub..."
 echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
